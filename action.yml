@@ -56,12 +56,13 @@ runs:
         TIMEOUT: ${{ inputs.timeout }}
         DELAY: ${{ inputs.delay }}
       run: |
-        args=(--store "$STORE" --delay "$DELAY" --timeout "$TIMEOUT" --workers "$WORKERS")
+        base=(--store "$STORE")
+        opts=(--delay "$DELAY" --timeout "$TIMEOUT" --workers "$WORKERS")
         if [ "$BLOCK_PRIVATE" = "true" ]; then
-          args+=(--block-private)
+          opts+=(--block-private)
         fi
         if [ "$MODE" = "check" ]; then
-          citevault "${args[@]}" check --all
+          citevault "${base[@]}" check --all "${opts[@]}"
         else
-          citevault "${args[@]}" scan "$MANIFEST"
+          citevault "${base[@]}" scan "$MANIFEST" "${opts[@]}"
         fi

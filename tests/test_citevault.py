@@ -544,6 +544,15 @@ class CiteVaultTest(unittest.TestCase):
         with self.assertRaises(ManifestError):
             load_manifest(path)
 
+    def test_manifest_accepts_utf8_bom(self) -> None:
+        path = os.path.join(self.tmp.name, "bom.json")
+        with open(path, "w", encoding="utf-8-sig") as handle:
+            handle.write(
+                '{"citations":[{"claim":"x","quote":"y","url":"https://example.com"}]}'
+            )
+        entries = load_manifest(path)
+        self.assertEqual(entries[0]["claim"], "x")
+
     def test_scan_reports_missing_quote(self) -> None:
         path = self._write(
             "citations.json",

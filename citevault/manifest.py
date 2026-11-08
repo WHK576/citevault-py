@@ -15,7 +15,7 @@ def _load_raw(path: Path) -> Any:
     suffix = path.suffix.lower()
     if suffix == ".json":
         try:
-            return json.loads(path.read_text(encoding="utf-8"))
+            return json.loads(path.read_text(encoding="utf-8-sig"))
         except json.JSONDecodeError as exc:
             raise ManifestError(f"JSON 解析失败: {exc}") from exc
     if suffix in {".yml", ".yaml"}:
@@ -26,7 +26,7 @@ def _load_raw(path: Path) -> Any:
                 "读取 YAML 需要安装 PyYAML：pip install citevault[yaml]"
             ) from exc
         try:
-            return yaml.safe_load(path.read_text(encoding="utf-8"))
+            return yaml.safe_load(path.read_text(encoding="utf-8-sig"))
         except yaml.YAMLError as exc:
             raise ManifestError(f"YAML 解析失败: {exc}") from exc
     raise ManifestError("清单只支持 .json / .yml / .yaml")
