@@ -1,0 +1,67 @@
+name: citevault-py
+description: Capture and verify citation evidence in CI
+inputs:
+  mode:
+    description: "scan（新条目存证 + 旧条目复查）或 check（只复查全部）"
+    default: scan
+  manifest:
+    description: "citations.json / citations.yml 路径"
+    default: citations.yml
+  store:
+    description: "存证库目录"
+    default: .citevault
+  workers:
+    description: "并发数，1-32；同域名仍按间隔串行"
+    default: "4"
+  block-private:
+    description: "拒绝本地/私有地址，CI 建议保持 true"
+    default: "true"
+  timeout:
+    description: "抓取超时秒数"
+    default: "15"
+  delay:
+    description: "同域名两次请求的最小间隔秒数"
+    default: "1"
+  extras:
+    description: "可选依赖：默认 [yaml]；需要 PDF 时用 [pdf,yaml]"
+    default: "[yaml]"
+  python-version:
+    description: "Python 版本"
+    default: "3.12"
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: ${{ inputs.python-version }}
+    - name: install
+      shell: bash
+      env:
+        EXTRAS: ${{ inputs.extras }}
+      run: |
+        case "$EXTRAS" in
+          ""|"[]") TARGET="${GITHUB_ACTION_PATH}" ;;
+          "[pdf]"|"[yaml]"|"[pdf,yaml]"|"[yaml,pdf]") TARGET="${GITHUB_ACTION_PATH}${EXTRAS}" ;;
+          *) echo "invalid extras: $EXTRAS" >&2; exit 1 ;;
+        esac
+        python -m pip install --quiet "$TARGET"
+    - name: run
+      shell: bash
+      env:
+        MODE: ${{ inputs.mode }}
+        MANIFEST: ${{ inputs.manifest }}
+        STORE: ${{ inputs.store }}
+        WORKERS: ${{ inputs.workers }}
+        BLOCK_PRIVATE: ${{ inputs.block-private }}
+        TIMEOUT: ${{ inputs.timeout }}
+        DELAY: ${{ inputs.delay }}
+      run: |
+        args=(--store "$STORE" --delay "$DELAY" --timeout "$TIMEOUT" --workers "$WORKERS")
+        if [ "$BLOCK_PRIVATE" = "true" ]; then
+          args+=(--block-private)
+        fi
+        if [ "$MODE" = "check" ]; then
+          citevault "${args[@]}" check --all
+        else
+          citevault "${args[@]}" scan "$MANIFEST"
+        fi

@@ -1,0 +1,32 @@
+name: live-regression
+
+on:
+  schedule:
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/cache@v4
+        with:
+          path: .citevault
+          key: live-citevault-${{ github.run_id }}
+          restore-keys: live-citevault-
+
+      - uses: ./
+        with:
+          mode: scan
+          manifest: examples/live-regression.yml
+          workers: "3"
+          delay: "1"
+          block-private: "true"
+          extras: "[yaml]"

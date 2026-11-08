@@ -1,0 +1,28 @@
+citations:
+  - claim: "httpbin 页面包含 Moby-Dick 标题"
+    quote: "Herman Melville - Moby-Dick"
+    url: "https://httpbin.org/html"
+
+  - claim: "RFC 2606 定义了保留顶级域名"
+    quote: "Reserved Top Level DNS Names"
+    url: "https://www.rfc-editor.org/rfc/rfc2606.txt"
+
+  - claim: "GNU 自由软件定义强调自由而非价格"
+    quote: "a matter of liberty, not price"
+    url: "https://www.gnu.org/philosophy/free-sw.en.html"
+
+  - claim: "IANA 说明 example 域名用于文档示例"
+    quote: "maintained for documentation purposes"
+    url: "https://www.iana.org/help/example-domains"
+
+  - claim: "Python 官网介绍适合有经验的程序员"
+    quote: "experienced with other languages"
+    url: "https://www.python.org/about/"
+
+  - claim: "python.org 会跨主机重定向到 www"
+    quote: "experienced with other languages"
+    url: "https://python.org/about/"
+
+  - claim: "RFC 2606 会重定向到 info 页面"
+    quote: "Reserved Top Level DNS Names"
+    url: "https://www.rfc-editor.org/rfc/rfc2606"

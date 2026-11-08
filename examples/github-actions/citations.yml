@@ -1,0 +1,29 @@
+name: citations
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 3 * * 1"
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # 让存证库跨运行保留。需要长期审计时，建议改为提交 .citevault/。
+      - uses: actions/cache@v4
+        with:
+          path: .citevault
+          key: citevault-${{ github.run_id }}
+          restore-keys: citevault-
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: WHK576/citevault-py@v0.9.0
+        with:
+          mode: scan
+          manifest: citations.yml

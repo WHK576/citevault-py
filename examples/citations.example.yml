@@ -1,0 +1,12 @@
+# 复制为 citations.yml 后填入真实引用。
+# 每条引用都需要 claim（结论）、quote（原文片段）和 url（或 file）。
+citations:
+  - claim: "报告显示 2026 年市场规模达到 120 亿美元"
+    quote: "the market reached 12 billion dollars in 2026"
+    url: "https://example.com/report"
+    note: "示例条目，请替换"
+
+  - claim: "某个本地文档里的结论"
+    quote: "原文片段"
+    file: "./docs/source.html"
+    note: "本地 HTML 文件"
