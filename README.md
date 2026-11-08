@@ -14,17 +14,24 @@ AI 写作会产生两条引用风险：引用是编的，或者引用真实但�
 
 ## 安装
 
+新手只需要一条命令：
+
 ```bash
-pip install -e .
-# 需要读 YAML 清单时
-pip install -e ".[yaml]"
-# 需要抽取 PDF 文本时
-pip install -e ".[pdf]"
+pip install citevault-py
 ```
 
-也可以直接跑源码：
+需要 YAML 清单或 PDF 抽取时：
 
 ```bash
+pip install "citevault-py[yaml,pdf]"
+```
+
+从源码开发：
+
+```bash
+git clone https://github.com/WHK576/citevault-py.git
+cd citevault-py
+pip install -e ".[pdf,yaml]"
 python -m citevault --help
 ```
 
