@@ -17,15 +17,14 @@ from citevault.fetch import FetchError
 from citevault.store import Vault
 
 SITES = [
-    ("https://httpbin.org/html", "Herman Melville - Moby-Dick"),
     ("https://www.rfc-editor.org/rfc/rfc2606.txt", "Reserved Top Level DNS Names"),
     ("https://www.gnu.org/philosophy/free-sw.en.html", "a matter of liberty, not price"),
     ("https://www.iana.org/help/example-domains", "maintained for documentation purposes"),
     ("https://www.python.org/about/", "experienced with other languages"),
 ]
 
-ROBOTS_DENIED = "https://httpbin.org/deny"
-NOT_FOUND = "https://httpbin.org/status/404"
+ROBOTS_DENIED = "https://www.gnu.org/private/"
+NOT_FOUND = "https://www.rfc-editor.org/definitely-not-a-real-path"
 REDIRECT = "https://python.org/about/"
 
 

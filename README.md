@@ -73,7 +73,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - uses: WHK576/citevault-py@v0.9.0
+      - uses: WHK576/citevault-py@v0.9.1
         with:
           mode: scan
           manifest: citations.yml
@@ -112,11 +112,11 @@ Windows PowerShell：
 $env:CITEVAULT_LIVE="1"; python -m unittest tests.test_live_regression -v
 ```
 
-覆盖 httpbin、RFC Editor、GNU、IANA、Python.org，以及 robots 拒绝、404、跨主机重定向。它会真实访问公共站点，并遵守 robots / Crawl-delay。另有 [live-regression.yml](.github/workflows/live-regression.yml) 每周一自动跑一次。
+覆盖 RFC Editor、GNU、IANA、Python.org，以及 robots 拒绝、404、跨主机重定向。它会真实访问公共站点，并遵守 robots / Crawl-delay。另有 [live-regression.yml](.github/workflows/live-regression.yml) 每周一自动跑一次。
 
 ## 发布门禁
 
-推送 `v*` tag（例如 `v0.9.0`）会触发 [release.yml](.github/workflows/release.yml)：
+推送 `v*` tag（例如 `v0.9.1`）会触发 [release.yml](.github/workflows/release.yml)：
 
 1. **unit**：ruff + 单元测试 + coverage ≥ 80%
 2. **live**：真实站点回归（调用 `live-regression.yml`）

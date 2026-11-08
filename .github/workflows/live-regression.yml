@@ -23,6 +23,8 @@ jobs:
           restore-keys: live-citevault-
 
       - uses: ./
+        id: citevault
+        continue-on-error: true
         with:
           mode: scan
           manifest: examples/live-regression.yml
@@ -30,3 +32,17 @@ jobs:
           delay: "1"
           block-private: "true"
           extras: "[yaml]"
+
+      - name: diagnose
+        if: always() && steps.citevault.outcome == 'failure'
+        shell: bash
+        run: |
+          set +e
+          citevault --store .citevault scan examples/live-regression.yml --workers 3 --delay 1 --block-private > /tmp/live.txt 2>&1
+          {
+            echo "### citevault live output"
+            echo '```'
+            cat /tmp/live.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit 1

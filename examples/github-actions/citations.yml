@@ -23,7 +23,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - uses: WHK576/citevault-py@v0.9.0
+      - uses: WHK576/citevault-py@v0.9.1
         with:
           mode: scan
           manifest: citations.yml
