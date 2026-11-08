@@ -1,0 +1,53 @@
+name: Feature request
+description: 提出一个功能建议或改进
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        这个项目刻意保持小。请先说明使用场景，以及为什么现有功能不够用。
+  - type: textarea
+    id: problem
+    attributes:
+      label: 你遇到的实际问题
+      description: 不要只写「希望支持 X」，请说明什么场景下需要它。
+      placeholder: 例如：我在 CI 里需要区分「页面没抓到」和「引用真的消失」。
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 建议的方案
+      description: 可以是接口、命令、配置或行为上的改动。
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 现有替代方案
+      description: 你现在怎么绕过？为什么不够好？
+    validations:
+      required: false
+  - type: dropdown
+    id: scope
+    attributes:
+      label: 影响范围
+      options:
+        - CLI
+        - 抓取 / 解析
+        - 存证 / bundle / anchor
+        - GitHub Action
+        - 文档
+        - 其他
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: 确认
+      options:
+        - label: 我已搜索现有 Issue 和 Discussions
+          required: true
+        - label: 这个建议符合项目边界（不做语义「是否支撑结论」的判定）
+          required: true

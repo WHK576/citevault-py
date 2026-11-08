@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 安全问题
+    url: https://github.com/WHK576/citevault-py/security/advisories/new
+    about: 请通过 GitHub 私密漏洞报告，不要公开开 Issue。
+  - name: 使用讨论
+    url: https://github.com/WHK576/citevault-py/discussions
+    about: 不确定是不是 bug，或想先讨论方案，请到 Discussions。
